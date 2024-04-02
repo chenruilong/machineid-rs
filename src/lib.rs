@@ -74,7 +74,7 @@ impl HWIDComponent {
             OSName => {
                 let sys = System::new_all();
                 let name = sys
-                    .long_os_version()
+                    .name()
                     .ok_or(HWIDError::new("OSName", "Could not retrieve OS Name"))?;
                 Ok(name)
             }

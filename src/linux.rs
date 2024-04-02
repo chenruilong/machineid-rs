@@ -61,6 +61,19 @@ impl Output {
                             }
                         }
                     }
+                    
+                    // 兼容多层分区
+                    if let Some(children2) = chld_device.children {
+                        for chld_device2 in children2.into_iter() {
+                            if let Some(mnt2) = chld_device2.mountpoint {
+                                if mnt2.eq("/") {
+                                    if let Some(uuid2) = chld_device2.uuid {
+                                        return Ok(uuid2);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
