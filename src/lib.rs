@@ -172,6 +172,17 @@ impl IdBuilder {
         self.hash.generate_hash(key.as_bytes(), final_string)
     }
 
+    pub fn build_raw(&mut self) -> Result<String, HWIDError> {
+        if self.parts.len() == 0 {
+            panic!("You must add at least one element to make a machine id");
+        }
+        self
+            .parts
+            .iter()
+            .map(|p| p.to_string())
+            .collect::<Result<String, HWIDError>>()
+    }
+
     /// Adds a component to the `IdBuilder` that will be hashed once you call the [`IdBuilder::build`] function.
     ///
     /// You can't add the same component twice.
